@@ -1,4 +1,5 @@
 using KursaVue.Option;
+using KursaVue.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,6 +14,9 @@ namespace KursaVue
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddCors();
+            builder.Services.AddTransient<Md5Services>();
+            builder.Services.AddTransient<DbWork>();
+
             // Add services to the container.
             builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
             {
@@ -80,22 +84,7 @@ namespace KursaVue
 
             app.MapControllers();
 
-            //app.Map("/login/{username}", (string username) =>
-            //{
-            //    var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
-            //    // создаем JWT-токен
-            //    var jwt = new JwtSecurityToken(
-            //            issuer: AuthOptions.ISSUER,
-            //            audience: AuthOptions.AUDIENCE,
-            //            claims: claims,
-            //            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
-            //            signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-                        
-
-            //    return new JwtSecurityTokenHandler().WriteToken(jwt);
-            //});
-
-          // добавляем сервисы CORS
+           
 
 
 

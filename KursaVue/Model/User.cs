@@ -15,9 +15,9 @@ public partial class User
 
     public int? PersonalDataId { get; set; }
 
-    public virtual ICollection<PersonalDatum> PersonalData { get; set; } = new List<PersonalDatum>();
+    public virtual List<PersonalDatum> PersonalData { get; set; } = new List<PersonalDatum>();
   
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual List<Product> Products { get; set; } = new List<Product>();
 
     public static implicit operator List<object>(User v)
     {

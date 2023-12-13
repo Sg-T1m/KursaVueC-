@@ -16,23 +16,21 @@ namespace KursaVue.Controllers
         private DbWork DbWork = new DbWork();
         [HttpGet]
         [Authorize]
-        public  IEnumerable<PersonalDataUserProfile> Get()
+        public IEnumerable<PersonalDataUserProfile> Get()
         {
             var req = (User.Identity as ClaimsIdentity)?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
-            var user =  DbWork.GetUserData(req.Value).ToList();
-           
-         
+            var user = DbWork.GetUserData(req.Value).ToList();
+
             List<PersonalDataUserProfile> personalData = new List<PersonalDataUserProfile>() { new PersonalDataUserProfile() {
-           Id = user[0].Id, Login = user[0].Login, TypeUsers = user[0].TypeUsers, 
-                Name  = user[0].PersonalData.Name, Sname  = user[0].PersonalData.Sname, MidellName  = user[0].PersonalData.MidellName
-    } };
+                   Id = user[0].Id, Login = user[0].Login.Replace(" ", ""), TypeUsers = user[0].TypeUsers.Replace(" ", ""), Name = user[0].PersonalData[0].Name.Replace(" ", ""), Sname = user[0].PersonalData[0].Sname.Replace(" ", ""), MidellName  = user[0].PersonalData[0].MidellName.Replace(" ", "")
+            } };
 
 
 
             return personalData;
         }
 
-  
-       
+
+
     }
 }
